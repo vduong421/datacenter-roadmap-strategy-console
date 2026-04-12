@@ -1,5 +1,7 @@
 # Datacenter Roadmap Strategy Console
 
+GitHub: https://github.com/vduong421/datacenter-roadmap-strategy-console
+
 A strategy-planning and execution-visibility engine for translating customer requirements, validation readiness, dashboard health, and competitive pressure into a prioritized storage roadmap.
 
 ## Why It Matches The Role
