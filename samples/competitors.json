@@ -1,0 +1,11 @@
+[
+  {
+    "name": "Competitor A",
+    "focus_areas": ["PCIe Gen6 NVMe Platform", "High-Density QLC SSD with Adaptive SLC"]
+  },
+  {
+    "name": "Competitor B",
+    "focus_areas": ["Computational Storage for AI Data Pipelines"]
+  }
+]
+

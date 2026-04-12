@@ -1,0 +1,36 @@
+[
+  {
+    "name": "Hyperscale AI Cloud",
+    "weight": 0.42,
+    "priorities": {
+      "latency": 0.30,
+      "bandwidth": 0.22,
+      "endurance": 0.16,
+      "power": 0.12,
+      "capacity": 0.20
+    }
+  },
+  {
+    "name": "Enterprise Virtualization",
+    "weight": 0.33,
+    "priorities": {
+      "latency": 0.24,
+      "bandwidth": 0.16,
+      "endurance": 0.20,
+      "power": 0.10,
+      "capacity": 0.30
+    }
+  },
+  {
+    "name": "Sovereign Cloud",
+    "weight": 0.25,
+    "priorities": {
+      "latency": 0.18,
+      "bandwidth": 0.14,
+      "endurance": 0.18,
+      "power": 0.20,
+      "capacity": 0.30
+    }
+  }
+]
+

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Datacenter Roadmap Strategy Console</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="frame">
+      <section class="headline">
+        <div>
+          <p class="kicker">Executive Planning Console</p>
+          <h1>Datacenter Roadmap Strategy Console</h1>
+          <p class="subtext">
+            Rank storage initiatives using customer demand, validation coverage, dashboard visibility, and AI-assist opportunity.
+          </p>
+        </div>
+        <div class="headline-actions">
+          <button id="runButton">Refresh Priorities</button>
+          <span id="runStatus" class="status-badge">Ready</span>
+        </div>
+      </section>
+
+      <section class="featured">
+        <div class="featured-card">
+          <span class="label">Top Priority</span>
+          <strong id="topPriority">-</strong>
+        </div>
+        <div class="featured-card">
+          <span class="label">Program Posture</span>
+          <strong id="programPosture">-</strong>
+        </div>
+        <div class="featured-card wide">
+          <span class="label">Quarterly Review Message</span>
+          <strong id="reviewMessage">-</strong>
+        </div>
+      </section>
+
+      <section class="stack split">
+        <div>
+          <div class="stack-head">
+            <h2>Initiative Ranking</h2>
+            <p>Recommended order for roadmap focus</p>
+          </div>
+          <div id="initiativeList" class="initiative-list"></div>
+        </div>
+        <div>
+          <div class="stack-head">
+            <h2>Decision Notes</h2>
+            <p>Review signals for leadership syncs and execution health</p>
+          </div>
+          <div id="decisionNotes" class="note-list"></div>
+        </div>
+      </section>
+
+      <section class="stack">
+        <div class="stack-head">
+          <h2>Roadmap Comparison Table</h2>
+          <p>Priority, readiness, risk, and competitive gap in one place</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Initiative</th>
+                <th>Priority</th>
+                <th>Demand</th>
+                <th>Readiness</th>
+                <th>Risk</th>
+                <th>Validation</th>
+                <th>Visibility</th>
+              </tr>
+            </thead>
+            <tbody id="initiativeTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
