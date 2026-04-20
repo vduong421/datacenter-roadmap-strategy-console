@@ -1,22 +1,18 @@
 # Datacenter Roadmap Strategy Console
 
-GitHub: https://github.com/vduong421/datacenter-roadmap-strategy-console
-
-A strategy-planning and execution-visibility engine for translating customer requirements, validation readiness, dashboard health, and competitive pressure into a prioritized storage roadmap.
+A strategy-planning engine for translating customer requirements, standards timing, and competitive pressure into a prioritized storage roadmap.
 
 ## Why It Matches The Role
 
-- Builds dashboard-style visibility for initiative health, validation coverage, and execution readiness
-- Adds AI-assisted recommendations for reporting and test-triage workflows
-- Shows how customer signals can be turned into roadmap and execution priorities for a global storage team
+- Aligns customer engagement with technology planning
+- Helps drive quarterly technology reviews
+- Balances ecosystem signals, product differentiation, and future architecture bets
 
 ## Features
 
 - Customer-segment requirement scoring
 - Standards readiness and competitive pressure modeling
 - Initiative prioritization for roadmap planning
-- Validation and dashboard visibility scoring
-- AI-assisted program brief and initiative recommendations
 - Executive-friendly JSON summary output
 
 ## Run

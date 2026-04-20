@@ -15,11 +15,6 @@ class EngineTests(unittest.TestCase):
 
         self.assertIsNotNone(result["top_priority"])
         self.assertEqual(len(result["initiatives"]), 3)
-        self.assertIn("portfolio_health", result)
-        self.assertIn("ai_program_brief", result)
-        self.assertIn("validation_score", result["initiatives"][0])
-        self.assertIn("visibility_score", result["initiatives"][0])
-        self.assertIn("ai_recommendation", result["initiatives"][0])
         self.assertGreaterEqual(
             result["initiatives"][0]["priority_score"],
             result["initiatives"][1]["priority_score"],

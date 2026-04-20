@@ -28,17 +28,14 @@ function initiativeCard(item) {
       <div class="initiative-head">
         <div>
           <h3>${item.name}</h3>
-          <div class="mini">Validation ${item.validation_score} | Visibility ${item.visibility_score} | Execution risk ${item.execution_risk}</div>
+          <div class="mini">Competitive pressure ${item.competitor_pressure} | Execution risk ${item.execution_risk}</div>
         </div>
         <div class="priority">${item.priority_score}</div>
       </div>
       ${bar("Demand", item.demand_score)}
       ${bar("Readiness", item.standards_readiness)}
-      ${bar("Validation", item.validation_score, "background: linear-gradient(90deg, #15803d, #84cc16);")}
-      ${bar("Visibility", item.visibility_score, "background: linear-gradient(90deg, #4338ca, #22c55e);")}
       ${bar("Competitive Gap", item.competitive_gap, "background: linear-gradient(90deg, #d97706, #d14343);")}
       <div class="action">${item.action}</div>
-      <div class="mini">${item.ai_recommendation}</div>
     </article>
   `;
 }
@@ -56,12 +53,12 @@ function noteCard(title, value, detail) {
 function buildNotes(initiatives) {
   const highestDemand = initiatives.reduce((best, item) => (item.demand_score > best.demand_score ? item : best), initiatives[0]);
   const highestRisk = initiatives.reduce((best, item) => (item.execution_risk > best.execution_risk ? item : best), initiatives[0]);
-  const weakestCoverage = initiatives.reduce((worst, item) => (item.validation_score < worst.validation_score ? item : worst), initiatives[0]);
+  const bestGap = initiatives.reduce((best, item) => (item.competitive_gap > best.competitive_gap ? item : best), initiatives[0]);
 
   decisionNotes.innerHTML = [
     noteCard("Strongest Demand Signal", highestDemand.name, `Demand score ${highestDemand.demand_score}`),
     noteCard("Highest Execution Risk", highestRisk.name, `Risk level ${highestRisk.execution_risk}`),
-    noteCard("Largest Validation Gap", weakestCoverage.name, `Validation score ${weakestCoverage.validation_score}`),
+    noteCard("Largest Competitive Gap", bestGap.name, `Gap score ${bestGap.competitive_gap}`),
   ].join("");
 }
 
@@ -75,8 +72,8 @@ function buildTable(initiatives) {
           <td>${item.demand_score}</td>
           <td>${item.standards_readiness}</td>
           <td>${item.execution_risk}</td>
-          <td>${item.validation_score}</td>
-          <td>${item.visibility_score}</td>
+          <td>${item.competitive_gap}</td>
+          <td>${item.competitor_pressure}</td>
         </tr>
       `,
     )
@@ -95,8 +92,8 @@ async function refreshRoadmap() {
     const data = await response.json();
 
     topPriority.textContent = data.top_priority;
-    programPosture.textContent = data.portfolio_health.average_validation_score >= 0.68 ? "Commit-ready validation posture" : "Coverage build-out required";
-    reviewMessage.textContent = `${data.quarterly_review_message} ${data.ai_program_brief}`;
+    programPosture.textContent = data.initiatives[0].priority_score >= 0.72 ? "Commit-ready portfolio" : "Prototype and validate";
+    reviewMessage.textContent = data.quarterly_review_message;
     initiativeList.innerHTML = data.initiatives.map(initiativeCard).join("");
     buildNotes(data.initiatives);
     buildTable(data.initiatives);
