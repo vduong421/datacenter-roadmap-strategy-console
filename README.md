@@ -2,6 +2,10 @@
 
 Datacenter Roadmap Strategy Console is a local planning tool for comparing infrastructure roadmap options across customer demand, technology readiness, competitor movement, and execution risk.
 
+## Product Screenshot
+
+![Product screenshot](assets/product-screenshot.png)
+
 It combines deterministic scoring with a local AI strategy analyst so users can see the numeric ranking and ask why a roadmap option should be prioritized.
 
 ## What It Does
