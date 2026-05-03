@@ -6,6 +6,11 @@ const reviewMessage = document.getElementById("reviewMessage");
 const initiativeList = document.getElementById("initiativeList");
 const decisionNotes = document.getElementById("decisionNotes");
 const initiativeTableBody = document.getElementById("initiativeTableBody");
+const aiAnalyst = document.getElementById("aiAnalyst");
+const aiQuestion = document.getElementById("aiQuestion");
+const askButton = document.getElementById("askButton");
+const aiStatus = document.getElementById("aiStatus");
+const aiAnswer = document.getElementById("aiAnswer");
 
 function setStatus(text, mode) {
   runStatus.textContent = text;
@@ -62,6 +67,31 @@ function buildNotes(initiatives) {
   ].join("");
 }
 
+function answerBox(title, value) {
+  return `
+    <article class="answer-card">
+      <div class="mini">${title}</div>
+      <div>${value || "-"}</div>
+    </article>
+  `;
+}
+
+function listItems(items) {
+  if (!items || !items.length) return "-";
+  return `<ul>${items.map((item) => `<li>${item}</li>`).join("")}</ul>`;
+}
+
+function buildAIAnalyst(ai) {
+  aiAnalyst.innerHTML = [
+    answerBox("Result", ai.result),
+    answerBox("Recommendation", ai.recommendation),
+    answerBox("Decision", ai.decision),
+    answerBox("Executive Summary", ai.executive_summary),
+    answerBox("Top Risks", listItems(ai.top_risks)),
+    answerBox("Operator Actions", listItems(ai.operator_actions)),
+  ].join("");
+}
+
 function buildTable(initiatives) {
   initiativeTableBody.innerHTML = initiatives
     .map(
@@ -97,6 +127,7 @@ async function refreshRoadmap() {
     initiativeList.innerHTML = data.initiatives.map(initiativeCard).join("");
     buildNotes(data.initiatives);
     buildTable(data.initiatives);
+    buildAIAnalyst(data.ai_copilot || {});
 
     setStatus("Completed", "success");
   } catch (error) {
@@ -106,5 +137,46 @@ async function refreshRoadmap() {
   }
 }
 
+async function askAI() {
+  const question = aiQuestion.value.trim();
+  if (!question) return;
+
+  aiStatus.textContent = "Running Local AI...";
+  aiStatus.className = "status-badge running";
+  aiAnswer.innerHTML = "";
+
+  try {
+    const response = await fetch("/api/ask", {
+      method: "POST",
+      body: question,
+    });
+    const data = await response.json();
+
+    aiStatus.textContent = "Local AI Finished";
+    aiStatus.className = "status-badge success";
+
+    aiAnswer.innerHTML = [
+      answerBox("Answer", data.answer),
+      answerBox("Evidence", data.evidence),
+      answerBox("Next Action", data.next_action),
+      answerBox("Recommendation", data.recommendation),
+      answerBox("Decision", data.decision),
+      answerBox("Risks", listItems(data.risks)),
+      answerBox("Operator Actions", listItems(data.operator_actions)),
+    ].join("");
+  } catch (error) {
+    aiStatus.textContent = "Local AI Failed";
+    aiStatus.className = "status-badge error";
+    aiAnswer.innerHTML = answerBox("Fallback", "The UI could not reach the AI endpoint.");
+  }
+}
+
+document.querySelectorAll(".quick-actions button").forEach((button) => {
+  button.addEventListener("click", () => {
+    aiQuestion.value = button.dataset.question;
+  });
+});
+
+askButton.addEventListener("click", askAI);
 runButton.addEventListener("click", refreshRoadmap);
 refreshRoadmap();
