@@ -1,45 +1,58 @@
 # Datacenter Roadmap Strategy Console
 
-A strategy-planning engine for translating customer requirements, standards timing, and competitive pressure into a prioritized storage roadmap.
+Datacenter Roadmap Strategy Console is a local planning tool for comparing infrastructure roadmap options across customer demand, technology readiness, competitor movement, and execution risk.
 
-## Why It Matches The Role
+It combines deterministic scoring with a local AI strategy analyst so users can see the numeric ranking and ask why a roadmap option should be prioritized.
 
-- Aligns customer engagement with technology planning
-- Helps drive quarterly technology reviews
-- Balances ecosystem signals, product differentiation, and future architecture bets
+## What It Does
 
-## Features
+- Loads customer, technology, and competitor data from local sample files.
+- Scores roadmap candidates using repeatable business and technical factors.
+- Ranks opportunities by impact, readiness, and risk.
+- Displays roadmap priorities in a browser UI.
+- Provides AI-generated strategy guidance grounded in the scorecard.
 
-- Customer-segment requirement scoring
-- Standards readiness and competitive pressure modeling
-- Initiative prioritization for roadmap planning
-- Executive-friendly JSON summary output
+## AI Features
+
+- Local AI analyst explains why a roadmap option ranks high or low.
+- AI chat answers roadmap questions using the current score data.
+- Recommendations reference deterministic score inputs instead of free-form guesses.
+- Product UI includes a visible AI panel for planning review.
+
+## Architecture
+
+```text
+customers + technologies + competitors
+        |
+        v
+Roadmap scoring engine -> ranked strategy options
+        |
+        v
+Local AI analyst / chat -> explanation + planning guidance
+        |
+        v
+Browser console
+```
 
 ## Run
 
 ```powershell
-python -m src.datacenter_roadmap_strategy_console.cli --customers samples\customers.json --technologies samples\technologies.json --competitors samples\competitors.json
+run.bat
 ```
 
-## Web Dashboard
+## Local AI Setup
 
-```powershell
-python server.py
-```
+Use LM Studio or another local OpenAI-compatible endpoint with a small model such as `google/gemma-4-e4b`.
 
-Then open `http://127.0.0.1:8003`.
+The scoring engine runs without AI; AI adds explanation and planning narrative.
 
-## Project Workbench
+## Main Files
 
-Launch the production-style desktop workbench with:
+- `server.py` - local API and AI insight endpoint.
+- `src/datacenter_roadmap_strategy_console/engine.py` - deterministic scoring logic.
+- `samples/` - customer, technology, and competitor inputs.
+- `web/` - browser UI.
 
-```powershell
-launch-workbench.bat
-```
+## Output
 
-What it adds:
-
-- Local-first AI copilot using `google/gemma-4-e4b` by default
-- Operator-focused workbench for reviewing real project inputs and outputs
-- System design, production-impact, and operational brief generation on demand
-- Grounded responses based on this project's README, sample files, and deterministic outputs
+The tool returns ranked roadmap options, score components, risk notes, and an AI-generated strategy recommendation.
